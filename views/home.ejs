@@ -9,7 +9,8 @@
       $(document).ready(() => {
         $('#btn-like').click((e) => {
           e.preventDefault();
-          $.get('/like/<%= girl.id %>', data => console.log(data))
+          $.get('/like/<%= girl.id %>', data =>
+            $('#btn-like').html(data + ' Likes'))
         });
       });
     </script>
