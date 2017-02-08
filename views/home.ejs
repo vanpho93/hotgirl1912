@@ -6,7 +6,12 @@
     <title>Hot girl</title>
     <script src="jquery-3.1.1.min.js"></script>
     <script type="text/javascript">
-      $(document).ready(() => console.log('jquery'));
+      $(document).ready(() => {
+        $('#btn-like').click((e) => {
+          e.preventDefault();
+          $.get('/like/<%= girl.id %>', data => console.log(data))
+        });
+      });
     </script>
     <style media="screen">
       .to-right {
@@ -26,13 +31,13 @@
     <div class="container">
       <h3><%= girl.name%> - MS: 0<%= girl.id%></h3>
       <div class="next-previous">
-        <a href="#">Previous</a>
-        <a href="#" class="to-right">Next</a>
+        <a href="/show/<%= girl.id - 1 %>">Previous</a>
+        <a href="/show/<%= girl.id + 1 %>" class="to-right">Next</a>
       </div>
       <img src="images/<%= girl.image%>" alt=""/>
       <div class="like-dislike">
-        <a href="#"><%= girl.like%> Likes</a>
-        <a href="#" class="to-right"><%= girl.dislike%> Dislikes</a>
+        <a href="#" id="btn-like"><%= girl.like%> Likes</a>
+        <a href="#" id="btn-dislike"class="to-right"><%= girl.dislike%> Dislikes</a>
       </div>
     </div>
   </body>

@@ -24,5 +24,18 @@ function getInfoById(id, cb){
   query('SELECT * FROM "HotGirl" WHERE id = ' + id, cb);
 }
 
+function likeById(id, cb) {
+  var sql = `UPDATE public."HotGirl" SET "like"= "like" + 1
+  WHERE id = ${id} RETURNING "like"`;
+  query(sql, cb);
+}
+function dislikeById(id, cb) {
+  var sql = `UPDATE public."HotGirl" SET "dislike"= "dislike" + 1
+  WHERE id = ${id} RETURNING "dislike"`;
+  query(sql, cb);
+}
+
 // getInfoById(3, (err, result) => console.log(result.rows));
-module.exports = {getInfoById};
+// likeById(1, (err, result) => console.log(result.rows));
+
+module.exports = {getInfoById, likeById, dislikeById};
