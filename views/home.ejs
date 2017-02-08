@@ -7,8 +7,30 @@
     <script type="text/javascript">
       $(document).ready(() => console.log('jquery'));
     </script>
+    <style media="screen">
+      .to-right {
+        float: right;
+      }
+      .container{
+        width: 300px;
+      }
+      img {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+    </style>
   </head>
   <body>
-
+    <div class="container">
+      <div class="next-previous">
+        <a href="#">Previous</a>
+        <a href="#" class="to-right">Next</a>
+      </div>
+      <img src="images/1.jpg" alt=""/>
+      <div class="like-dislike">
+        <a href="#">10 Likes</a>
+        <a href="#" class="to-right">5 Dislikes</a>
+      </div>
+    </div>
   </body>
 </html>
