@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <base href="http://localhost:3000"/>
     <title>Hot girl</title>
     <script src="jquery-3.1.1.min.js"></script>
     <script type="text/javascript">
@@ -23,15 +24,15 @@
   </head>
   <body>
     <div class="container">
-      <h3>Mai Phương Thuý - MS: 01</h3>
+      <h3><%= girl.name%> - MS: 0<%= girl.id%></h3>
       <div class="next-previous">
         <a href="#">Previous</a>
         <a href="#" class="to-right">Next</a>
       </div>
-      <img src="images/1.jpg" alt=""/>
+      <img src="images/<%= girl.image%>" alt=""/>
       <div class="like-dislike">
-        <a href="#">10 Likes</a>
-        <a href="#" class="to-right">5 Dislikes</a>
+        <a href="#"><%= girl.like%> Likes</a>
+        <a href="#" class="to-right"><%= girl.dislike%> Dislikes</a>
       </div>
     </div>
   </body>
