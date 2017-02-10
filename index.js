@@ -31,3 +31,17 @@ app.get('/dislike/:id', (req, res) => {
   var {id} = req.params;
   dislikeById(id, (err, result) => res.send(result.rows[0].dislike + ''));
 });
+
+app.get('/getInfo/:id', (req, res) => {
+  var {id} = req.params;
+  getInfoById(id, (err, result) => {
+    if(err) return res.send('Loi ' + err);
+    if (id <= 0) {
+      id = 1;
+    }else {
+      id = 5;
+    }
+    if(result.rows.length === 0) return res.redirect('/getInfo/' + id);
+    res.send(result.rows[0]);
+  });
+});

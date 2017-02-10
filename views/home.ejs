@@ -12,11 +12,29 @@
           $.get('/like/<%= girl.id %>', data =>
             $('#btn-like').html(data + ' Likes'))
         });
-        $('#btn-dislike').click((e) => {
+        $('#btn-dislike').click(e => {
           e.preventDefault();
           $.get('/dislike/<%= girl.id %>', data =>
             $('#btn-dislike').html(data + ' Dislikes'))
         });
+
+        $('#btn-next').click(e => {
+          e.preventDefault();
+          $.get('/getInfo/<%= girl.id + 1 %>', data => $('body').html(
+            `<div class="container">
+              <h3>${data.name} - MS: 0${data.id}</h3>
+              <div class="next-previous">
+                <a href="#" id="btn-previous">Previous</a>
+                <a href="#" id="btn-next" class="to-right">Next</a>
+              </div>
+              <img src="images/${data.image}" alt=""/>
+              <div class="like-dislike">
+                <a href="#" id="btn-like">${data.like} Likes</a>
+                <a href="#" id="btn-dislike"class="to-right">${data.dislike} Dislikes</a>
+              </div>
+            </div>`
+          ))
+        })
       });
     </script>
     <style media="screen">
@@ -37,8 +55,8 @@
     <div class="container">
       <h3><%= girl.name%> - MS: 0<%= girl.id%></h3>
       <div class="next-previous">
-        <a href="/show/<%= girl.id - 1 %>">Previous</a>
-        <a href="/show/<%= girl.id + 1 %>" class="to-right">Next</a>
+        <a href="#" id="btn-previous">Previous</a>
+        <a href="#" id="btn-next" class="to-right">Next</a>
       </div>
       <img src="images/<%= girl.image%>" alt=""/>
       <div class="like-dislike">
