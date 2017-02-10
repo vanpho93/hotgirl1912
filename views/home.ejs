@@ -6,6 +6,7 @@
     <title>Hot girl</title>
     <script src="jquery-3.1.1.min.js"></script>
     <script type="text/javascript">
+      var id = <%= girl.id %>;
       $(document).ready(() => {
         $('#btn-like').click((e) => {
           e.preventDefault();
@@ -17,10 +18,12 @@
           $.get('/dislike/<%= girl.id %>', data =>
             $('#btn-dislike').html(data + ' Dislikes'))
         });
-
-        $('#btn-next').click(e => {
+        $(document).on('click', '#btn-next', e => {
           e.preventDefault();
-          $.get('/getInfo/<%= girl.id + 1 %>', data => $('body').html(
+          $.get('/getInfo/' + (id + 1), data => {
+            id = data.id;
+            console.log('Click');
+            $('body').html(
             `<div class="container">
               <h3>${data.name} - MS: 0${data.id}</h3>
               <div class="next-previous">
@@ -33,7 +36,7 @@
                 <a href="#" id="btn-dislike"class="to-right">${data.dislike} Dislikes</a>
               </div>
             </div>`
-          ))
+          )})
         })
       });
     </script>
