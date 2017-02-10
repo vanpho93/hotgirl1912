@@ -38,6 +38,15 @@
             </div>`
           )})
         })
+
+        $('#btn-show').click(() => {
+          var value = $('#p-test').attr('abc');
+          console.log(value);
+        })
+        $('#btn-set').click(() => {
+          var value = $('#p-test').attr('abc', 'djahfj');
+          console.log(value);
+        })
       });
     </script>
     <style media="screen">
@@ -67,5 +76,9 @@
         <a href="#" id="btn-dislike"class="to-right"><%= girl.dislike%> Dislikes</a>
       </div>
     </div>
+
+    <p id="p-test" abc="1"></p>
+    <button id="btn-show">Show</button>
+    <button id="btn-set">Set</button>
   </body>
 </html>
