@@ -12,6 +12,11 @@
           $.get('/like/<%= girl.id %>', data =>
             $('#btn-like').html(data + ' Likes'))
         });
+        $('#btn-dislike').click((e) => {
+          e.preventDefault();
+          $.get('/dislike/<%= girl.id %>', data =>
+            $('#btn-dislike').html(data + ' Dislikes'))
+        });
       });
     </script>
     <style media="screen">
