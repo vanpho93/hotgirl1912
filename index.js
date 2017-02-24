@@ -5,43 +5,43 @@ app.set('views', './views');
 app.use(express.static('public'));
 app.listen(process.env.PORT || 3000, () => console.log('Server started'));
 
-// var {getInfoById, likeById, dislikeById} = require('./db.js');
+var {getInfoById, likeById, dislikeById} = require('./db.js');
 
-app.get('/', (req, res) => res.send('Hello'));
+// app.get('/', (req, res) => res.send('Hello'));
 
-// app.get('/show/:id', (req, res) => {
-//   var {id} = req.params;
-//   getInfoById(id, (err, result) => {
-//     if(err) return res.send('Loi ' + err);
-//     if (id <= 0) {
-//       id = 1;
-//     }else {
-//       id = 5;
-//     }
-//     if(result.rows.length === 0) return res.redirect('/show/' + id);
-//     res.render('home', {girl: result.rows[0]});
-//   });
-// });
-//
-// app.get('/like/:id', (req, res) => {
-//   var {id} = req.params;
-//   likeById(id, (err, result) => res.send(result.rows[0].like + ''));
-// });
-// app.get('/dislike/:id', (req, res) => {
-//   var {id} = req.params;
-//   dislikeById(id, (err, result) => res.send(result.rows[0].dislike + ''));
-// });
-//
-// app.get('/getInfo/:id', (req, res) => {
-//   var {id} = req.params;
-//   getInfoById(id, (err, result) => {
-//     if(err) return res.send('Loi ' + err);
-//     if (id <= 0) {
-//       id = 1;
-//     }else {
-//       id = 5;
-//     }
-//     if(result.rows.length === 0) return res.redirect('/getInfo/' + id);
-//     res.send(result.rows[0]);
-//   });
-// });
+app.get('/show/:id', (req, res) => {
+  var {id} = req.params;
+  getInfoById(id, (err, result) => {
+    if(err) return res.send('Loi ' + err);
+    if (id <= 0) {
+      id = 1;
+    }else {
+      id = 5;
+    }
+    if(result.rows.length === 0) return res.redirect('/show/' + id);
+    res.render('home', {girl: result.rows[0]});
+  });
+});
+
+app.get('/like/:id', (req, res) => {
+  var {id} = req.params;
+  likeById(id, (err, result) => res.send(result.rows[0].like + ''));
+});
+app.get('/dislike/:id', (req, res) => {
+  var {id} = req.params;
+  dislikeById(id, (err, result) => res.send(result.rows[0].dislike + ''));
+});
+
+app.get('/getInfo/:id', (req, res) => {
+  var {id} = req.params;
+  getInfoById(id, (err, result) => {
+    if(err) return res.send('Loi ' + err);
+    if (id <= 0) {
+      id = 1;
+    }else {
+      id = 5;
+    }
+    if(result.rows.length === 0) return res.redirect('/getInfo/' + id);
+    res.send(result.rows[0]);
+  });
+});
