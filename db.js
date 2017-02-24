@@ -12,27 +12,40 @@ var config = {
 
 var pool = new pg.Pool(config);
 
-function query(sql, cb){
-  pool.connect((err, client, done) => {
-    if(err) return cb(err);
-    done();
-    client.query(sql, cb);
-  });
+// function query(sql, cb){
+//   pool.connect((err, client, done) => {
+//     if(err) return cb(err);
+//     done();
+//     client.query(sql, cb);
+//   });
+// }
+
+let query = (sql) => {
+  return new Promise((resolve, reject) => {
+    pool.connect((err, client, done) => {
+      if(err) return reject(err);
+      done();
+      client.query(sql, (err, result) => {
+        if(err) return reject(err);
+        resolve(result);
+      });
+    });
+  })
 }
 
-function getInfoById(id, cb){
-  query('SELECT * FROM "HotGirl" WHERE id = ' + id, cb);
+function getInfoById(id){
+  return query('SELECT * FROM "HotGirl" WHERE id = ' + id);
 }
 
-function likeById(id, cb) {
+function likeById(id) {
   var sql = `UPDATE public."HotGirl" SET "like"= "like" + 1
   WHERE id = ${id} RETURNING "like"`;
-  query(sql, cb);
+  return query(sql);
 }
-function dislikeById(id, cb) {
+function dislikeById(id) {
   var sql = `UPDATE public."HotGirl" SET "dislike"= "dislike" + 1
   WHERE id = ${id} RETURNING "dislike"`;
-  query(sql, cb);
+  return query(sql);
 }
 
 // getInfoById(3, (err, result) => console.log(result.rows));
