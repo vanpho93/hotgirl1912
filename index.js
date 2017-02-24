@@ -9,33 +9,36 @@ var {getInfoById, likeById, dislikeById} = require('./db.js');
 
 // app.get('/', (req, res) => res.send('Hello'));
 
-app.get('/show/:id', (req, res) => {
+app.get('/show/:id', async (req, res) => {
   var {id} = req.params;
-  getInfoById(id, (err, result) => {
-    if(err) return res.send('Loi ' + err);
-    if (id <= 0) {
-      id = 1;
-    }else {
-      id = 5;
-    }
+  try{
+    let result = await getInfoById(id);
     if(result.rows.length === 0) return res.redirect('/show/' + id);
     res.render('home', {girl: result.rows[0]});
-  });
+  } catch (e) {
+    res.send('Loi ' + err);
+  }
 });
 
 app.get('/like/:id', (req, res) => {
   var {id} = req.params;
-  likeById(id, (err, result) => res.send(result.rows[0].like + ''));
+  likeById(id)
+  .then(result => res.send(result.rows[0].like + ''))
+  .catch(err => res.send(err + ''))
 });
-app.get('/dislike/:id', (req, res) => {
+
+app.get('/dislike/:id', async (req, res) => {
   var {id} = req.params;
-  dislikeById(id, (err, result) => res.send(result.rows[0].dislike + ''));
+  let result = await dislikeById(id);
+  res.send(result.rows[0].dislike + '');
+  // dislikeById(id, (err, result) => res.send(result.rows[0].dislike + ''));
+
 });
 
 app.get('/getInfo/:id', (req, res) => {
   var {id} = req.params;
-  getInfoById(id, (err, result) => {
-    if(err) return res.send('Loi ' + err);
+  getInfoById(id)
+  .then(result => {
     if (id <= 0) {
       id = 1;
     }else {
@@ -43,5 +46,6 @@ app.get('/getInfo/:id', (req, res) => {
     }
     if(result.rows.length === 0) return res.redirect('/getInfo/' + id);
     res.send(result.rows[0]);
-  });
+  })
+  .catch(err => res.send('Loi ' + err));
 });
